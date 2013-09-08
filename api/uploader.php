@@ -1,6 +1,7 @@
 <?php
 require_once("user.php");
 require_once("db.php");
+require_once("../config.php");
 
 class Uploader {
     var $allowedExts = array("gif", "jpeg", "jpg", "png");
@@ -16,7 +17,9 @@ class Uploader {
             echo "Please login";
             return false;
         }
-    
+        
+        $config = new Config();
+        
         $arr = array();
         $temp = explode(".", $_FILES["image"]["name"]);
         $extension = end($temp);
@@ -26,14 +29,14 @@ class Uploader {
                 echo '[{"error":'. $_FILES["image"]["error"] .', "response": ""}]';
             } else {
                 $path = $this->folder.$user[1]."/".$_FILES["image"]["name"];
-                if (file_exists($path)) {
+                if (file_exists($config->path.$path)) {
                     echo '[{"error":"already exists", "response": ""}]';
                 } else {
-                    if (!file_exists($this->folder.$user[1])) {
-                        mkdir($this->folder.$user[1]);
+                    if (!file_exists($config->path.$this->folder.$user[1])) {
+                        mkdir($config->path$this->folder.$user[1]);
                     }
                     $this->imageToDB($user[1], $path);
-                    move_uploaded_file($_FILES["image"]["tmp_name"], $path);
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $config->path.$path);
                     echo '[{"error":"", "response": "'.$path.'"}]';
                 }
             }
