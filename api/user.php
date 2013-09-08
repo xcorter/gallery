@@ -11,11 +11,11 @@ class User {
             if ($_GET['user'] == 'logout') {
                 $this->logout();
                 header("refresh: 0.3;");
-            } else if ($_GET['activate'] && $_GET['email']) {
-                $this->activateUser($_GET['email'], $_GET['activate']);
             }
             $this->name = $username[0];
             $this->id = $username[1];
+        } else if ($_GET['activate'] && $_GET['email']) {
+            $this->activateUser($_GET['email'], $_GET['activate']);
         }
     }
     
