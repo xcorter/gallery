@@ -12,22 +12,22 @@ class User {
                 $this->logout();
                 header("refresh: 0.3;");
             } else if ($_GET['activate'] && $_GET['email']) {
-                $this->activateUser($_GET['activate']);
+                $this->activateUser($_GET['email'], $_GET['activate']);
             }
             $this->name = $username[0];
             $this->id = $username[1];
         }
     }
     
-    function activateUser($id, $hash) {
+    function activateUser($email, $hash) {
         $db = new DB();
         $db->setSelect("hash, id, username");
         $db->setTable("user");
-        $db->setCondition(array('id' => $id, 'hash' => $hash));
+        $db->setCondition(array('email' => $email, 'hash' => $hash));
         $userdata = $db->getResult();
         if ($userdata) {
             $db->setTable('user');
-            $db->setCondition(array('id'=> $id));
+            $db->setCondition(array('email'=> $email));
             $db->setCondition(array('is_active'=> 1));
             $db->update();
         }
@@ -98,7 +98,7 @@ class User {
         <head>
         </head>
         <body>
-            <a href="192.241.249.196/gallery/login.php?email='.$email.'&activate='.$hash.'">click here for activation</a>
+            <a href="192.241.249.196/gallery/gallery/login.php?email='.$email.'&activate='.$hash.'">click here for activation</a>
         </body>
         </html>';
         
