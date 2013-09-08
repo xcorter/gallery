@@ -33,7 +33,7 @@ class Uploader {
                     echo '[{"error":"already exists", "response": ""}]';
                 } else {
                     if (!file_exists($config->path.$this->folder.$user[1])) {
-                        mkdir($config->path$this->folder.$user[1]);
+                        mkdir($config->path.$this->folder.$user[1]);
                     }
                     $this->imageToDB($user[1], $path);
                     move_uploaded_file($_FILES["image"]["tmp_name"], $config->path.$path);
