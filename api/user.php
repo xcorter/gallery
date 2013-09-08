@@ -28,7 +28,7 @@ class User {
         if ($userdata) {
             $db->setTable('user');
             $db->setCondition(array('email'=> $email));
-            $db->setCondition(array('is_active'=> 1));
+            $db->setCondition(array('is_active'=> 1), 1);
             $db->update();
         }
     }
