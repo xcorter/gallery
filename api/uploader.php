@@ -26,14 +26,14 @@ class Uploader {
                 echo '[{"error":'. $_FILES["image"]["error"] .', "response": ""}]';
             } else {
                 $path = $this->folder.$user[1]."/".$_FILES["image"]["name"];
-                if (file_exists('../'.$path)) {
+                if (file_exists($path)) {
                     echo '[{"error":"already exists", "response": ""}]';
                 } else {
-                    if (!file_exists('../'.$this->folder.$user[1])) {
-                        mkdir('../'.$this->folder.$user[1]);
+                    if (!file_exists($this->folder.$user[1])) {
+                        mkdir($this->folder.$user[1]);
                     }
                     $this->imageToDB($user[1], $path);
-                    move_uploaded_file('../'.$_FILES["image"]["tmp_name"], $path);
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $path);
                     echo '[{"error":"", "response": "'.$path.'"}]';
                 }
             }
