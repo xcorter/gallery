@@ -17,14 +17,16 @@ class Uploader {
             echo "Please login";
             return false;
         }
-        
+        echo 3;
         $config = new Config();
         
         $arr = array();
         $temp = explode(".", $_FILES["image"]["name"]);
         $extension = end($temp);
+		echo 4;
         if (in_array($_FILES["image"]["type"], $this->allowedMimes)
         && ($_FILES["image"]["size"] < $this->size)) {
+			echo 5;
             if ($_FILES["image"]["error"] > 0) {
                 echo '[{"error":'. $_FILES["image"]["error"] .', "response": ""}]';
             } else {
